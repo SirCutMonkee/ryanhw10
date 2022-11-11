@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Starting build for read_resistance.cpp"
+g++ read_resistance.cpp Analogin.cpp -o read_resistance
+echo "Build done"
