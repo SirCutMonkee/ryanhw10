@@ -20,9 +20,7 @@
 #include "derek_LED.h"
 
 using namespace std;
-using namespace exploringBB;
-//using exploringBB::GPIO_VALUE;
-//using exploringBB::GPIO;
+using exploringBB::GPIO_VALUE;
 
 int main(int argc, char* argv[]){
 	cout << "Starting gpioApp.cpp" << endl;
@@ -32,30 +30,23 @@ int main(int argc, char* argv[]){
 	AnalogIn tempSensor;	
 	float temp;
 	GPIO gpio46(46);
+	GPIO_VALUE gpio46val;
 	GPIO gpioLED(60);
-
-	for(int i = 0 ; i < 4 ; i++){
-		led[i].turnOff();
-	}
 
 	led[1].turnOn();
 	led[3].turnOn();
 	led[2].blink(2);
 	
 	temp = -40.0 + 100*(0.00043956 * tempSensor.readADCSample() - 0.1);
-	cout << "Temperature: " << temp << "-deg C" << endl;
-	cout << "GPIO 46 state: " << gpio46.getValue() << endl;
-	if(gpio46.getValue() == LOW){
+	cout << "Temperature: " << temp << endl;
+	gpio46val = gpio46.getValue();
+	cout << "GPIO 46 state: " << gpio46val << endl;
+	if(gpio46val == LOW){
 		gpioLED.setValue(HIGH);
 	}
 	else{
 		gpioLED.setValue(LOW);
 	}
-	
-	for(int i = 0 ; i < 4 ; i++){
-		led[i].turnOff();
-	}
-	
 	cout << "Closing gpioApp.cpp" << endl;
 
 	return 0;
